@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AuditVitals.Api/AuditVitals.Api.csproj" />
+    <Project Path="src/AuditVitals.Application/AuditVitals.Application.csproj" />
+    <Project Path="src/AuditVitals.Domain/AuditVitals.Domain.csproj" />
+    <Project Path="src/AuditVitals.Infrastructure/AuditVitals.Infrastructure.csproj" />
+    <Project Path="src/AuditVitals.Worker/AuditVitals.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AuditVitals.Api.IntegrationTests/AuditVitals.Api.IntegrationTests.csproj" />
+    <Project Path="tests/AuditVitals.Application.Tests/AuditVitals.Application.Tests.csproj" />
+    <Project Path="tests/AuditVitals.Domain.Tests/AuditVitals.Domain.Tests.csproj" />
+    <Project Path="tests/AuditVitals.Infrastructure.Tests/AuditVitals.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>

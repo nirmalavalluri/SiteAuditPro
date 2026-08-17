@@ -1,0 +1,116 @@
+<main class="audit-page">
+  <section class="hero">
+    <h1>Find the SEO problems costing your website traffic.</h1>
+    <p class="subheadline">
+      AuditVitals scans your website, prioritizes technical and content issues, and shows you
+      exactly what to fix first.
+    </p>
+  </section>
+
+  <mat-card class="audit-card" appearance="outlined">
+    <form [formGroup]="form" (ngSubmit)="runFreeAudit()" novalidate>
+      <mat-form-field appearance="outline" class="url-field">
+        <mat-label>Website URL</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="url"
+          placeholder="https://example.com"
+          autocomplete="url"
+          aria-describedby="url-hint"
+        />
+        <app-icon name="globe" matPrefix />
+        @if (urlControl.invalid && urlControl.touched) {
+          <mat-error>
+            @if (urlControl.hasError('required')) {
+              A website URL is required.
+            } @else if (urlControl.hasError('pattern')) {
+              Enter a full URL starting with http:// or https://.
+            } @else if (urlControl.hasError('maxlength')) {
+              That URL is too long.
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+      <p id="url-hint" class="field-hint">
+        We only scan publicly reachable websites you have permission to audit.
+      </p>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="run-audit-button"
+        [disabled]="submitting()"
+      >
+        @if (submitting()) {
+          <mat-spinner diameter="20" class="button-spinner" aria-hidden="true"></mat-spinner>
+          Running Audit&hellip;
+        } @else {
+          Run Free Audit
+        }
+      </button>
+    </form>
+
+    <div class="result-region" aria-live="polite">
+      @if (submitError()) {
+        <div class="state state--error" role="alert">
+          <app-icon name="error" />
+          <span>{{ submitError() }}</span>
+        </div>
+      } @else if (status(); as current) {
+        <div class="status-panel">
+          <div class="status-panel__header">
+            <app-status-badge [status]="current.status" />
+            <span class="status-panel__url">{{ current.requestedUrl }}</span>
+          </div>
+
+          @if (inProgress) {
+            <div class="state state--loading">
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line skeleton-line--short"></div>
+              <p class="state__caption">
+                @if (current.status === 'Queued') {
+                  Your audit is queued and will start shortly.
+                } @else {
+                  Crawling your site now&hellip; this usually takes a few seconds.
+                }
+              </p>
+            </div>
+          } @else if (current.status === 'Completed') {
+            <dl class="status-summary">
+              <div>
+                <dt>Pages crawled</dt>
+                <dd>{{ current.crawledPageCount }}</dd>
+              </div>
+              <div>
+                <dt>Pages discovered</dt>
+                <dd>{{ current.discoveredPageCount }}</dd>
+              </div>
+              <div>
+                <dt>Sample audit</dt>
+                <dd>{{ current.isSampledAudit ? 'Yes' : 'No' }}</dd>
+              </div>
+            </dl>
+            <p class="state__caption">
+              Milestone 1 fetches your homepage and records basic response data. Full technical SEO
+              findings and a health score arrive in a later milestone.
+            </p>
+          } @else if (current.status === 'Failed') {
+            <div class="state state--error">
+              <app-icon name="error" />
+              <span>{{ current.failureReason ?? 'The audit could not be completed.' }}</span>
+            </div>
+          } @else if (current.status === 'Cancelled') {
+            <p class="state__caption">This audit was cancelled.</p>
+          }
+        </div>
+      } @else {
+        <div class="state state--empty">
+          <app-icon name="search" />
+          <p>Enter a website URL above to run your first free audit.</p>
+        </div>
+      }
+    </div>
+  </mat-card>
+</main>

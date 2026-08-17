@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: auditvitals-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-auditvitals}
+      POSTGRES_USER: ${POSTGRES_USER:-auditvitals}
+      # Local development only — never a real secret. Production connection
+      # strings must come from environment variables / a secrets manager,
+      # never from a value committed here. See .env.example.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-auditvitals_dev_password}
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - auditvitals-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-auditvitals} -d ${POSTGRES_DB:-auditvitals}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  auditvitals-postgres-data:

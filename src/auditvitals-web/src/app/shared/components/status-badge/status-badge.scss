@@ -1,0 +1,39 @@
+:host {
+  display: inline-flex;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  &--queued {
+    background: var(--status-queued-bg);
+    color: var(--status-queued-fg);
+  }
+
+  &--running {
+    background: var(--status-running-bg);
+    color: var(--status-running-fg);
+  }
+
+  &--completed {
+    background: var(--status-completed-bg);
+    color: var(--status-completed-fg);
+  }
+
+  &--failed {
+    background: var(--status-failed-bg);
+    color: var(--status-failed-fg);
+  }
+
+  &--cancelled {
+    background: var(--status-cancelled-bg);
+    color: var(--status-cancelled-fg);
+  }
+}

@@ -1,0 +1,115 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  // AuditVitals brand tokens (light). Page background is a deliberately
+  // neutral off-white, independent of Material's primary-tinted surface
+  // token, per the "white or very light neutral background" design direction.
+  --app-page-bg: #fbfbfd;
+  --app-heading-color: #10182e;
+  --app-muted-color: #5b6478;
+  --app-surface-alt: #f4f5f9;
+  --app-skeleton-base: #e7e9f0;
+  --app-skeleton-shine: #f6f7fb;
+
+  --status-queued-bg: #eef1f7;
+  --status-queued-fg: #3b4863;
+  --status-running-bg: #e6edff;
+  --status-running-fg: #3450e0;
+  --status-completed-bg: #e3f6ea;
+  --status-completed-fg: #1e7e34;
+  --status-failed-bg: #fdeaea;
+  --status-failed-fg: #c62828;
+  --status-cancelled-bg: #eeeeee;
+  --status-cancelled-fg: #5b6478;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  // AuditVitals brand tokens (dark).
+  --app-page-bg: #121420;
+  --app-heading-color: #eef1fb;
+  --app-muted-color: #a6adc4;
+  --app-surface-alt: #1c2033;
+  --app-skeleton-base: #262b42;
+  --app-skeleton-shine: #323852;
+
+  --status-queued-bg: #262c42;
+  --status-queued-fg: #c3cbe0;
+  --status-running-bg: #22284f;
+  --status-running-fg: #9db4ff;
+  --status-completed-bg: #163826;
+  --status-completed-fg: #6fd695;
+  --status-failed-bg: #3a1f1f;
+  --status-failed-fg: #ff8a80;
+  --status-cancelled-bg: #2a2e42;
+  --status-cancelled-fg: #a6adc4;
+}
+
+// A system font stack, not a remote web font: it renders instantly with no
+// external dependency or flash-of-unstyled-text risk, and every fallback in
+// the chain is already a clean, neutral sans-serif.
+$app-font-stack:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+body {
+  // A neutral page background rather than Material's primary-tinted surface
+  // token; individual Material components (cards, inputs) still use their
+  // own --mat-sys-* tokens so they keep their intended tonal styling.
+  background-color: var(--app-page-bg);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  font-family: $app-font-stack;
+
+  margin: 0;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $app-font-stack;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--mat-sys-primary);
+}
